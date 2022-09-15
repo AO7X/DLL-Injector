@@ -43,8 +43,12 @@ int main() {
                 (LPTHREAD_START_ROUTINE)LoadLibraryA, DLLAddress, 0, 0);
             if (hThread) {
                 CloseHandle(hThread);
+            } else {
+                std::cout << "Failed to open DLL thread" << std::endl;
             }
             CloseHandle(hProcess);
+        } else {
+            std::cout << "Failed to open process" << std::endl;
         }
     } else {
         std::cout << "Process not found" << std::endl;
