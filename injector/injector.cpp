@@ -31,8 +31,8 @@ int main(int argc, char *argv[]) {
         std::cout << "hack.dll: path to DLL file\n";
         return 0;
     }
-    std::string sProcessName = argv[2];
-    std::string sDLLPath = argv[3];
+    std::string sProcessName = argv[1];
+    std::string sDLLPath = argv[2];
     DWORD dwProcessID = GetProcessID(sProcessName);
     if (dwProcessID) {
         HANDLE hProcess = OpenProcess(PROCESS_ALL_ACCESS, 0, dwProcessID);
