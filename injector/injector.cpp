@@ -23,13 +23,16 @@ DWORD GetProcessID(std::string sProcessName) {
     return dwProcessID;
 }
 
-int main() {
-    std::string sProcessName;
-    std::cout << "Process name: ";
-    std::cin >> sProcessName;
-    std::string sDLLPath;
-    std::cout << "DLL path: ";
-    std::cin >> sDLLPath;
+int main(int argc, char *argv[]) {
+    if (argc != 3) {
+        std::cout << "usage: injector.exe <process.exe> <hack.dll>\n";
+        std::cout << "process.exe: target process into which the DLL ";
+        std::cout << "file will be injected\n";
+        std::cout << "hack.dll: path to DLL file\n";
+        return 0;
+    }
+    std::string sProcessName = argv[2];
+    std::string sDLLPath = argv[3];
     DWORD dwProcessID = GetProcessID(sProcessName);
     if (dwProcessID) {
         HANDLE hProcess = OpenProcess(PROCESS_ALL_ACCESS, 0, dwProcessID);
@@ -50,6 +53,7 @@ int main() {
         } else {
             std::cout << "Failed to open process" << std::endl;
         }
+        std::cout << "DLL injected successfully" << std::endl;
     } else {
         std::cout << "Process not found" << std::endl;
     }
